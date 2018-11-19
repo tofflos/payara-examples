@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="default.css" rel="stylesheet"/>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home</title>
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li><a href="./">Home</a></li>
+                <li><a href="./items.html">Items</a></li>
+                <li><a href="./things.html">Things</a></li>
+            </ul>
+        </nav>
+        <main>
+            <noscript>
+                <section>
+                    <h1>Javascript required</h1>
+                    <p>This page requires Javascript.</p>
+                </section>
+            </noscript>
+        </main>
+        <script>
+            fetch('http://localhost:8080/mavenproject74-1.0-SNAPSHOT/api/v1/items',
+                    {headers: {"Authorization": 'Basic ' + btoa('administrator' + ':' + 'administratorPassword')}})
+                .then(response => response.json())
+                .then(json =>
+                {
+                    document.querySelector("main").innerHTML =
+                        `<section>
+                            <h1>Items</h1>
+                            <table>
+                                <thead>
+                                    <tr><th>id</th><th>name</th></tr>
+                                </thead>
+                                <tbody>
+                                    ${json.map(item => `<tr><td>${item.id}</td><td>${item.name}</td></tr>` ).join('')}
+                                </tbody>
+                            </table>
+                            ${this.message ? `<p class="alert-danger">${this.message}</p>` : ''}
+                        </section>`;
+                });
+        </script>
+    </body>
+</html>

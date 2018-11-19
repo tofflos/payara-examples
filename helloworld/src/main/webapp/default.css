@@ -1,0 +1,98 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2017-nov-09, 00:19:34
+    Author     : Erik
+*/
+
+body {
+    background-color: #eeeeee;
+    font-family: "Segoe UI"
+}
+
+nav {
+    background-color: #333333;
+    color: white;
+    margin: 0 auto;
+    padding: 0.5em 1em;
+    max-width: 50em;
+}
+
+nav > ul {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav > ul > li > a {
+    color: white;
+    display: block;
+    font-family: "Segoe UI", sans-serif;
+    font-size: 1.2em;
+    padding: 0.5em 1em;
+    text-decoration: none;
+}
+
+nav > ul > li > a:hover {
+    background-color: #444444;
+    text-decoration: underline;
+}
+
+@media (min-width: 600px) {
+    nav > ul > li {
+        border-right: 1px dashed #aaaaaa;
+    }
+
+    nav > ul > li:last-child {
+        border-right: none;
+    }
+}
+
+@media (max-width: 600px) {
+    nav > ul {
+        flex-direction: column;
+    }
+
+    nav > ul > li {
+        border-bottom: 1px dashed #aaaaaa;
+    }
+
+    nav > ul > li:last-child {
+        border-bottom: none;
+    }
+}
+
+main {
+    background-color: white;
+    font-family: "Segoe UI", sans-serif;
+    margin: 0 auto;
+    padding: 1em;
+    max-width: 50em;
+}
+
+h1 {
+    font-family: "Georgia", serif;
+    font-size: 2em;
+    font-weight: normal;
+    margin: 0.25em 0;	
+}
+
+p {
+    margin: 0;
+}
+
+p + p {
+    margin-top: 0.5em;
+}
+
+.alert-danger {
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    color: #a94442;
+    padding: 0.25em;
+}

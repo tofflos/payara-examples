@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="default.css" rel="stylesheet"/>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Things</title>
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li><a href="./">Home</a></li>
+                <li><a href="./items.html">Items</a></li>
+                <li><a href="./things.html">Things</a></li>
+            </ul>
+        </nav>
+        <main>
+            <noscript>
+            <section>
+                <h1>Javascript required</h1>
+                <p>This page requires Javascript.</p>
+            </section>
+            </noscript>
+        </main>
+        <script>
+//            const URL = 'http://localhost:8180/mavenproject74-1.0-SNAPSHOT/api/v1/things';
+//            const URL = 'http://localhost:8080/mavenproject74-1.0-SNAPSHOT';
+//            const URL = 'http://localhost:8080/mavenproject74-1.0-SNAPSHOT/api/v1/items';
+            const URL = 'http://localhost:8080/mavenproject74-1.0-SNAPSHOT/api/v1/things';
+
+            const OPTS = {
+                headers: {
+                    "Authorization": 'Basic ' + btoa('employee' + ':' + 'employeePassword')
+                }
+            };
+
+            function fetchWithErrorHandling(request, init) {
+                return new Promise(function (resolve, reject) {
+                    fetch(request, init)
+                            .then(response => resolve(response))
+                            .catch(() => reject(Error("There was a problem fetching the response.")));
+                });
+            }
+
+            function parse(response) {
+                return new Promise(function (resolve, reject) {
+                    response.json()
+                            .then(json => response.ok ? resolve(json) : reject(Error(json.message)))
+                            .catch(() => reject(Error("There was a problem parsing the response.")));
+                });
+            }
+
+
+            function renderError(error) {
+                document.querySelector("main").innerHTML =
+                    `<section>
+                        <p class="alert-danger">${error.message}</p>
+                        <h1>Things</h1>
+                    </section>`;
+            }
+
+            function render(things) {
+                document.querySelector("main").innerHTML =
+                        `<section>
+                        <h1>Things</h1>
+                        <table>
+                            <thead>
+                                <tr><th>id</th><th>name</th></tr>
+                            </thead>
+                            <tbody>
+                                ${things.map(thing => `<tr><td>${thing.id}</td><td>${thing.name}</td></tr>`).join('\n')}
+                            </tbody>
+                        </table>
+                    </section>`;
+            }
+
+            fetchWithErrorHandling(URL, OPTS)
+                .then(parse)
+                .then(render)
+                .catch(renderError);
+        </script>
+    </body>
+</html>
